@@ -13,4 +13,4 @@ python:
 jobs:
   include:
     - stage: test
-      script:
+      script: bash scripts/test.sh

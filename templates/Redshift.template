@@ -1,9 +1,8 @@
-
 {
   "AWSTemplateFormatVersion": "2010-09-09",
 
   "Description": "AWS CloudFormation Sample Template Redshift: Create an Amazon Redshift cluster. **WARNING** This template creates Amazon Redshift Cluster. You will be billed for the AWS resources used if you create a stack from this template.",
-
+ 
   "Parameters": {
     "DatabaseName": {
       "Description": "The name of the first database to be created when the redshift cluster is created",

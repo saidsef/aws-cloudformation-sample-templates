@@ -1,4 +1,3 @@
-
 {
   "AWSTemplateFormatVersion" : "2010-09-09",
 
@@ -147,7 +146,7 @@
       "Properties" : {
         "Type" : "container",
         "ContainerProperties" : {
-          "Image" : {
+          "Image" : { 
               "Fn::Join" : [ "", ["137112412989.dkr.ecr.", { "Ref" : "AWS::Region" }, ".amazonaws.com/amazonlinux:latest" ]]
           },
           "Vcpus" : 2,
@@ -234,7 +233,7 @@
       "Value" : { "Ref" : "ProdApplicationJob" }
     },
     "TestApplicationJobArn" : {
-      "Value" : { "Ref" : "TestApplicationJob" }
+      "Value" : { "Ref" : "TestApplicationJob" } 
     },
     "HighPriorityJobQueueArn" : {
       "Value" : { "Ref" : "HighPriorityJobQueue" }
@@ -250,3 +249,4 @@
     }
   }
 }
+

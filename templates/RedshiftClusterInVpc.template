@@ -1,4 +1,3 @@
-
 {
   "AWSTemplateFormatVersion": "2010-09-09",
 
@@ -22,7 +21,7 @@
     },
 
     "NumberOfNodes": {
-      "Description": "The nuber of compute nodes in the redshift cluster.  When cluster type is specified as: 1) single-node, the NumberOfNodes parameter should be specified as 1, 2) multi-node, the NumberOfNodes parameter should be greater than 1",
+      "Description": "The number of compute nodes in the redshift cluster.  When cluster type is specified as: 1) single-node, the NumberOfNodes parameter should be specified as 1, 2) multi-node, the NumberOfNodes parameter should be greater than 1",
       "Type": "Number",
       "Default": "1"
     },

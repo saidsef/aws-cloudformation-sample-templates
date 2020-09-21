@@ -1,4 +1,3 @@
-
 {
   "AWSTemplateFormatVersion" : "2010-09-09",
 
@@ -74,7 +73,7 @@
 
     "VPNGateway" : {
       "Type" : "AWS::EC2::VPNGateway",
-      "Properties" : {
+      "Properties" : { 
         "Type" : "ipsec.1",
         "Tags" : [{ "Key" : "Application", "Value" : { "Ref" : "AWS::StackName" }}]
       }
@@ -82,7 +81,7 @@
 
     "VPNGatewayAttachment" : {
       "Type" : "AWS::EC2::VPCGatewayAttachment",
-      "Properties" : {
+      "Properties" : { 
         "VpcId" : {"Ref" : "VPC"},
         "VpnGatewayId" : {"Ref" : "VPNGateway" }
       }
@@ -92,7 +91,7 @@
       "Type" : "AWS::EC2::CustomerGateway",
       "Properties" : {
         "Type" : "ipsec.1",
-        "BgpAsn" : "65000",
+        "BgpAsn" : "65000", 
         "IpAddress" : { "Ref" : "VPNAddress" },
         "Tags" : [
           { "Key" : "Application", "Value" : { "Ref" : "AWS::StackName" } },

@@ -11,5 +11,5 @@ for f in $(ls ../templates/*.template)
 do
   echo -e "#################"
   echo -e $f
-  cat $f | python -mjson.tool
+  python -mjson.tool $f || break
 done

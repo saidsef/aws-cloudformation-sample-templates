@@ -1,12 +1,15 @@
 name: Validate CloudFormation Templates
 on:
-  paths:
-    - 'templates/**'
-    - 'scripts/**'
   push:
+    paths:
+      - 'templates/**'
+      - 'scripts/**'
     branches:
       - master
   pull_request:
+    paths:
+      - 'templates/**'
+      - 'scripts/**'
     branches:
       - master
 jobs:

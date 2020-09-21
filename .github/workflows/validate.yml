@@ -1,5 +1,8 @@
 name: Validate CloudFormation Templates
 on:
+  paths:
+    - 'templates/**'
+    - 'scripts/**'
   push:
     branches:
       - master

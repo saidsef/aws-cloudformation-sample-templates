@@ -17,8 +17,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Set Tag Name
+        run: |
+          echo "TAG=$(echo ${GITHUB_REF##*/})" >> $GITHUB_ENV
+          echo "BUILD_ID=$(echo `git log -1 --pretty=format:%ad --date=format:%Y.%m`)" >> $GITHUB_ENV
+          echo "DATE=v$(echo `date +'%Y.%m'`)" >> $GITHUB_ENV
       - name: Validate Files in templates directory
         uses: actions/setup-python@v2
         with:
           python-version: '3.8'
-      - run: cd scripts/ && bash ./test.sh
+      - name: Run test
+        run: |
+          cd scripts/ && bash ./test.sh
+      - name: Create tag
+        uses: actions/github-script@v3
+        if: contains(github.ref, 'master')
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            github.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: "refs/tags/${{ env.DATE }}",
+              sha: context.sha
+            })

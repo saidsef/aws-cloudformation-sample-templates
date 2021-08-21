@@ -4,40 +4,30 @@ on:
     paths:
       - 'templates/**'
       - 'scripts/**'
+      - 'requirements.txt'
     branches:
       - master
   pull_request:
     paths:
       - 'templates/**'
       - 'scripts/**'
+      - 'requirements.txt'
     branches:
       - master
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7, 3.8, 3.9]
     steps:
       - uses: actions/checkout@v2
-      - name: Set Tag Name
-        run: |
-          echo "TAG=$(echo ${GITHUB_REF##*/})" >> $GITHUB_ENV
-          echo "BUILD_ID=$(echo `git log -1 --pretty=format:%ad --date=format:%Y.%m`)" >> $GITHUB_ENV
-          echo "DATE=v$(echo `date +'%Y.%m'`)" >> $GITHUB_ENV
       - name: Validate Files in templates directory
         uses: actions/setup-python@v2
         with:
-          python-version: '3.8'
+          python-version: ${{ matrix.python-version }}
       - name: Run test
         run: |
-          cd scripts/ && bash ./test.sh
-      - name: Create tag
-        uses: actions/github-script@v3
-        if: contains(github.ref, 'master')
-        with:
-          github-token: ${{ github.token }}
-          script: |
-            github.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: "refs/tags/${{ env.DATE }}",
-              sha: context.sha
-            })
+          cd scripts/ && \
+          bash ./test.sh

@@ -1,7 +1,7 @@
 name: "Create Release"
 on:
   schedule:
-    - cron: '55 23 L * *'
+    - cron: '55 23 28 */1 *'
 
 jobs:
   release:

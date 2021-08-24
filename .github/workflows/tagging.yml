@@ -1,4 +1,4 @@
-name: "Tagging"
+name: "Create Tag"
 on:
   push:
     branches:
@@ -7,13 +7,8 @@ on:
 jobs:
   tagging:
     runs-on: ubuntu-latest
-    if: ${{ contains(github.ref, 'master') && github.event_name != 'schedule' }}
+    if: ${{ contains(github.ref, 'master') }}
     steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2
-      - name: Set Tag Value
-        run: |
-          echo "DATE=v$(echo `date +'%Y.%m'`)" >> $GITHUB_ENV
       - name: Check out repository code
         uses: actions/checkout@v2
       - name: Set Tag Value

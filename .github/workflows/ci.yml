@@ -5,6 +5,7 @@ on:
       - 'templates/**'
       - 'scripts/**'
       - 'requirements.txt'
+      - '.github/workflows/ci.yml'
     branches:
       - master
   pull_request:
@@ -12,6 +13,7 @@ on:
       - 'templates/**'
       - 'scripts/**'
       - 'requirements.txt'
+      - '.github/workflows/ci.yml'
     branches:
       - master
 

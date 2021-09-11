@@ -1,3 +1,4 @@
+name: Triage New Issues
 on:
   issues:
     types: [opened]

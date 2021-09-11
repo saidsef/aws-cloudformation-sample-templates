@@ -6,13 +6,13 @@ on:
     types:
       - completed
     branch:
-      - master
+      - main
   workflow_dispatch:
 
 jobs:
   release:
     runs-on: ubuntu-latest
-    if: ${{ contains(github.ref, 'master') && github.event_name != 'schedule' }}
+    if: ${{ contains(github.ref, 'main') && github.event_name != 'schedule' }}
     steps:
       - name: Set Tag Value
         run: |

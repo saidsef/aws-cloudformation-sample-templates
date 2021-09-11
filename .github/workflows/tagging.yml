@@ -1,8 +1,13 @@
 name: "Create Tag"
 on:
-  push:
-    branches:
+  workflow_run:
+    workflows:
+      - CI
+    types:
+      - completed
+    branch:
       - master
+  workflow_dispatch:
 
 jobs:
   tagging:

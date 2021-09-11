@@ -1,4 +1,4 @@
-name: "Create Release"
+name: Release
 on:
   workflow_run:
     workflows:
@@ -16,7 +16,9 @@ jobs:
     steps:
       - name: Set Tag Value
         run: |
-          echo "DATE=v$(echo `date +'%Y.%m'`)" >> $GITHUB_ENV
+          export DATE=v$(echo `date +'%Y.%m'`)
+          echo "DATE=${DATE}" >> $GITHUB_ENV
+          echo "TAG=$(echo `git tag -l ${DATE}`)" >> $GITHUB_ENV
       - name: Create Release
         uses: actions/github-script@v4
         with:
@@ -24,12 +26,23 @@ jobs:
           script: |
             const { repo: { owner, repo }, sha } = context;
             const tag = process.env.DATE;
+            let release_id = 0;
             try {
-              await github.repos.createRelease({
+              const release = await github.repos.createRelease({
                 owner, repo,
                 tag_name: tag,
-                prerelease: false
+                title: tag,
+                draft: false,
+                target_commitish: sha
               });
+              release_id = release.data.id;
             } catch (e) {
-              console.log("Release already exists: " + e);
+              let latest;
+              if (e.status == 422) { // Release alredy exists
+                latest = await github.repos.getLatestRelease({
+                  owner, repo
+                });
+              }
+              release_id = latest.data.id;
             }
+            return release_id

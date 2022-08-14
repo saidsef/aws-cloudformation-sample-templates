@@ -20,7 +20,7 @@ jobs:
           echo "DATE=${DATE}" >> $GITHUB_ENV
           echo "TAG=$(echo `git tag -l ${DATE}`)" >> $GITHUB_ENV
       - name: Create Release
-        uses: actions/github-script@v4
+        uses: actions/github-script@v
         with:
           github-token: ${{ github.token }}
           script: |
@@ -28,7 +28,7 @@ jobs:
             const tag = process.env.DATE;
             let release_id = 0;
             try {
-              const release = await github.repos.createRelease({
+              const release = await github.rest.repos.createRelease({
                 owner, repo,
                 tag_name: tag,
                 title: tag,
@@ -39,7 +39,7 @@ jobs:
             } catch (e) {
               let latest;
               if (e.status == 422) { // Release alredy exists
-                latest = await github.repos.getLatestRelease({
+                latest = await github.rest.repos.getLatestRelease({
                   owner, repo
                 });
               }

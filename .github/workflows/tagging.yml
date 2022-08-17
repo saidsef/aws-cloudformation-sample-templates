@@ -1,5 +1,8 @@
 name: Tagging
 on:
+  push:
+    branches:
+      - main
   workflow_run:
     workflows:
       - CI
@@ -19,7 +22,7 @@ jobs:
       - name: Set Tag Value
         run: |
           echo "DATE=v$(echo `date +'%Y.%m'`)" >> $GITHUB_ENV
-      - name: Create tag
+      - name: Create Tag
         uses: actions/github-script@v6
         with:
           github-token: ${{ github.token }}
@@ -41,6 +44,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 ref: "tags/${{ env.DATE }}",
-                sha: context.sha
+                sha: context.sha,
+                force: true
               });
             }
